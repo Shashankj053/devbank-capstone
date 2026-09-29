@@ -68,7 +68,7 @@ function App() {
 
         <section className="hero">
           <div>
-            <label>PERSONAL FINANCE DASHBOARD</label>
+            <label>PERSONAL FINANCE DEMO • NON-PRODUCTION</label>
             <h2>Welcome to DevBank</h2>
             <p>
               A cloud-native banking application powered by
@@ -178,12 +178,12 @@ function App() {
 
             <div>
               <h3>DevOps Infrastructure</h3>
-              <p>Live application stack status</p>
+              <p>Containerized microservices • CI/CD deployment pipeline</p>
             </div>
 
-            <div className="healthy">
-              ● Deployment healthy
-            </div>
+           <div className="healthy">
+            ● CI/CD Deployment Healthy
+           </div>
 
           </div>
 

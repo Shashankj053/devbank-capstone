@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Docker Hub..."
+      - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+  build:
+    commands:
+      - echo "Building backend image..."
+      - docker build -t $DOCKERHUB_USERNAME/devbank-backend:latest ./backend
+
+      - echo "Building frontend image..."
+      - docker build -t $DOCKERHUB_USERNAME/devbank-frontend:latest ./frontend
+
+  post_build:
+    commands:
+      - echo "Pushing backend image..."
+      - docker push $DOCKERHUB_USERNAME/devbank-backend:latest
+
+      - echo "Pushing frontend image..."
+      - docker push $DOCKERHUB_USERNAME/devbank-frontend:latest
+
+      - echo "Creating ECS deployment definition..."
+      - printf '[{"name":"devbank-backend","imageUri":"%s/devbank-backend:latest"},{"name":"devbank-frontend","imageUri":"%s/devbank-frontend:latest"}]' "$DOCKERHUB_USERNAME" "$DOCKERHUB_USERNAME" > imagedefinitions.json
+
+artifacts:
+  files:
+    - imagedefinitions.json
